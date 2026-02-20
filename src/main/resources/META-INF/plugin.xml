@@ -11,7 +11,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.apogorelow.teamideconfigs.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
         <postStartupActivity implementation="com.github.apogorelow.teamideconfigs.startup.MyProjectActivity" />
-        <internalFileTemplate name="Zustand_Store" />
+        <internalFileTemplate name="Zustand_Store.ts" />
     </extensions>
 
     <actions>
