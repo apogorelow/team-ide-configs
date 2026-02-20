@@ -4,4 +4,5 @@
         id="com.github.apogorelow.teamideconfigs"
         url="https://github.com/apogorelow/team-ide-configs/releases/download/v0.0.1/team-ide-configs-0.0.3.zip"
         version="0.0.3" />
+    <name>hedersoft IDE Configs</name>
 </plugins>
