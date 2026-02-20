@@ -3,5 +3,5 @@
     <plugin
         id="com.github.apogorelow.teamideconfigs"
         url="https://github.com/apogorelow/team-ide-configs/releases/download/v0.0.1/team-ide-configs-0.0.1.zip"
-        version="1.0.0" />
+        version="0.0.1" />
 </plugins>
