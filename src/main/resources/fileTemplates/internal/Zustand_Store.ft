@@ -1,0 +1,55 @@
+#set($attr = "")
+## 👇 Check if they provided attributes. If not, default to "dummyProperty"
+#if(${ATTRIBUTES_COMMA_SEPARATED} && ${ATTRIBUTES_COMMA_SEPARATED.trim()} != "")
+    #set($attributeArray = $ATTRIBUTES_COMMA_SEPARATED.split(","))
+#else
+    #set($dummyString = "dummyProperty")
+    #set($attributeArray = $dummyString.split(","))
+#end
+#set($CleanName = $NAME.substring(0,1).toUpperCase() + $NAME.substring(1))
+import { create } from 'zustand';
+
+// ============================================================================
+// ${CleanName} Store
+// 📚 Team Docs: See `docs/ZUSTAND_BEST_PRACTICES.md`
+// ============================================================================
+
+interface ${CleanName}State {
+#foreach($attr in $attributeArray)
+    #set($trimmed = $attr.trim())
+    ${trimmed}: any; // TODO: Define type for ${trimmed}
+#end
+actions: {
+#foreach($attr in $attributeArray)
+    #set($trimmed = $attr.trim())
+    #set($capAttr = $trimmed.substring(0,1).toUpperCase() + $trimmed.substring(1))
+set${capAttr}: (payload: any) => void; // TODO: Define payload type
+#end
+};
+}
+
+// ❌ DO NOT export this main store hook!
+const use${CleanName}Internal = create<${CleanName}State>()((set) => ({
+    #foreach($attr in $attributeArray)
+        #set($trimmed = $attr.trim())
+        ${trimmed}: null, // TODO: Set initial value
+    #end
+
+    actions: {
+    #foreach($attr in $attributeArray)
+        #set($trimmed = $attr.trim())
+        #set($capAttr = $trimmed.substring(0,1).toUpperCase() + $trimmed.substring(1))
+        set${capAttr}: (payload) => set((state) => ({ ${trimmed}: payload })),
+    #end
+    },
+    }));
+
+    // ✅ Atomic Selectors for reading state
+    #foreach($attr in $attributeArray)
+        #set($trimmed = $attr.trim())
+        #set($capAttr = $trimmed.substring(0,1).toUpperCase() + $trimmed.substring(1))
+        export const use${CleanName}${capAttr} = () => use${CleanName}Internal((state) => state.${trimmed});
+    #end
+
+    // ✅ Static actions object for writing state
+    export const use${CleanName}Actions = () => use${CleanName}Internal((state) => state.actions);

@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.apogorelow.teamideconfigs</id>
-    <name>team-ide-configs</name>
+    <name>hedersoft IDE Configs</name>
     <vendor>apogorelow</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -11,5 +11,15 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.apogorelow.teamideconfigs.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
         <postStartupActivity implementation="com.github.apogorelow.teamideconfigs.startup.MyProjectActivity" />
+        <internalFileTemplate name="Zustand_Store" />
     </extensions>
+
+    <actions>
+        <action id="com.github.apogorelow.teamideconfigs.templates.CreateZustandStoreAction"
+            class="com.github.apogorelow.teamideconfigs.templates.CreateZustandStoreAction"
+            text="Zustand Store"
+            description="Creates a new Zustand Store">
+            <add-to-group group-id="NewGroup" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>
