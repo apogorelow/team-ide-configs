@@ -84,10 +84,10 @@ intellijPlatform {
         }
 
         ideaVersion {
-            // This pulls "232" (or whatever you set) from gradle.properties
-            sinceBuild = providers.gradleProperty("pluginSinceBuild")
+            // Hardcode 232 to support 2023.2 up to the latest 2025.3+
+            sinceBuild = "232"
 
-            // Add this line to remove the upper limit for better compatibility
+            // This is the crucial part for 2.x to remove the upper limit
             untilBuild = provider { null }
         }
     }
