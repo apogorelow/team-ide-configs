@@ -84,7 +84,11 @@ intellijPlatform {
         }
 
         ideaVersion {
+            // This pulls "232" (or whatever you set) from gradle.properties
             sinceBuild = providers.gradleProperty("pluginSinceBuild")
+
+            // Add this line to remove the upper limit for better compatibility
+            untilBuild = provider { null }
         }
     }
 
