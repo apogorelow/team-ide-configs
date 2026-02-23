@@ -6,15 +6,31 @@
     #set($dummyString = "dummyProperty")
     #set($attributeArray = $dummyString.split(","))
 #end
-#set($CleanName = $NAME.substring(0,1).toUpperCase() + $NAME.substring(1))
+
+## Derive the domain name from the entered filename.
+## Expected input: filterStore.ts (but handle filterStore / filter / filter.ts as well)
+#set($rawName = $NAME)
+#set($baseName = $rawName)
+#if($baseName.endsWith(".ts"))
+    #set($baseName = $baseName.substring(0, $baseName.length() - 3))
+#end
+#if($baseName.endsWith(".tsx"))
+    #set($baseName = $baseName.substring(0, $baseName.length() - 4))
+#end
+#if($baseName.endsWith("Store"))
+    #set($domainName = $baseName.substring(0, $baseName.length() - 5))
+#else
+    #set($domainName = $baseName)
+#end
+#set($Domain = $domainName.substring(0,1).toUpperCase() + $domainName.substring(1))
 import { create } from 'zustand';
 
 // ============================================================================
-// ${CleanName} Store
-// 📚 Team Docs: See `docs/ZUSTAND_BEST_PRACTICES.md`
+// ${Domain} Store
+// 📚 Team Docs: https://dev.azure.com/hedersoft/hedersoft%20Projektstarter/_git/tech-stack-guidelines?path=/01-React/zustand.md
 // ============================================================================
 
-interface ${CleanName}State {
+interface ${Domain}State {
 #foreach($attr in $attributeArray)
     #set($trimmed = $attr.trim())
     ${trimmed}: any; // TODO: Define type for ${trimmed}
@@ -29,7 +45,7 @@ set${capAttr}: (payload: any) => void; // TODO: Define payload type
 }
 
 // ❌ DO NOT export this main store hook!
-const use${CleanName} = create<${CleanName}State>()((set) => ({
+const use${Domain}Store = create<${Domain}State>()((set) => ({
     #foreach($attr in $attributeArray)
         #set($trimmed = $attr.trim())
         ${trimmed}: null, // TODO: Set initial value
@@ -48,8 +64,8 @@ const use${CleanName} = create<${CleanName}State>()((set) => ({
     #foreach($attr in $attributeArray)
         #set($trimmed = $attr.trim())
         #set($capAttr = $trimmed.substring(0,1).toUpperCase() + $trimmed.substring(1))
-        export const use${CleanName}${capAttr} = () => use${CleanName}((state) => state.${trimmed});
+        export const use${Domain}${capAttr} = () => use${Domain}Store((state) => state.${trimmed});
     #end
 
     // ✅ Static actions object for writing state
-    export const use${CleanName}Actions = () => use${CleanName}((state) => state.actions);
+    export const use${Domain}Actions = () => use${Domain}Store((state) => state.actions);

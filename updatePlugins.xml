@@ -2,8 +2,8 @@
 <plugins>
     <plugin
         id="com.github.apogorelow.teamideconfigs"
-        url="https://github.com/apogorelow/team-ide-configs/releases/download/v0.0.6/team-ide-configs-0.0.6.zip"
-        version="0.0.6">
+        url="https://github.com/apogorelow/team-ide-configs/releases/download/v0.0.7/team-ide-configs-0.0.7.zip"
+        version="0.0.7">
     <name>hedersoft IDE Configs</name>
     </plugin>
 </plugins>
