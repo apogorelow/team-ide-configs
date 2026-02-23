@@ -29,7 +29,7 @@ set${capAttr}: (payload: any) => void; // TODO: Define payload type
 }
 
 // ❌ DO NOT export this main store hook!
-const use${CleanName}Internal = create<${CleanName}State>()((set) => ({
+const use${CleanName} = create<${CleanName}State>()((set) => ({
     #foreach($attr in $attributeArray)
         #set($trimmed = $attr.trim())
         ${trimmed}: null, // TODO: Set initial value
@@ -48,8 +48,8 @@ const use${CleanName}Internal = create<${CleanName}State>()((set) => ({
     #foreach($attr in $attributeArray)
         #set($trimmed = $attr.trim())
         #set($capAttr = $trimmed.substring(0,1).toUpperCase() + $trimmed.substring(1))
-        export const use${CleanName}${capAttr} = () => use${CleanName}Internal((state) => state.${trimmed});
+        export const use${CleanName}${capAttr} = () => use${CleanName}((state) => state.${trimmed});
     #end
 
     // ✅ Static actions object for writing state
-    export const use${CleanName}Actions = () => use${CleanName}Internal((state) => state.actions);
+    export const use${CleanName}Actions = () => use${CleanName}((state) => state.actions);
